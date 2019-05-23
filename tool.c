@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 15:22:08 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/04/16 10:14:23 by mdeltour         ###   ########.fr       */
+/*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
+/*   Updated: 2019/05/21 12:32:37 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fillit.h"
 
-char	*ft_strchr(const char *s, int c)
+t_flist		*ft_newlist(void)
 {
-	while (c != *s && *s)
-		s++;
-	if (c == *s)
-		return ((char *)s);
-	return (0);
+	t_flist *list;
+
+	if (!(list = (t_flist *)malloc(sizeof(t_flist))))
+		return (NULL);
+	list->tetri = 0;
+	list->first = NULL;
+	list->last = NULL;
+	return (list);
 }
