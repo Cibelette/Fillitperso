@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 11:25:31 by clagier           #+#    #+#             */
-/*   Updated: 2019/05/24 14:17:08 by clagier          ###   ########.fr       */
+/*   Updated: 2019/05/24 18:03:14 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,32 @@ t_map init_map(void)
 	return (map);
 }
 
-int		place_blocks(t_tetris *current, t_map *map, char letter, int x, int y)
+int place_next_block(t_tetris *current, int i, int j, t_map map, char letter)
+{
+	int block;
+	int inext;
+	int jnext;
+
+	block = 0;
+
+	while(block < 3)
+	{
+		inext = find_block_lat(current, i, j);
+		jnext = find_block_long(current, i, j);
+		map->x += (inext - i);
+		map->y += (jnext - j)
+		if (map->map[map->x][map->y] != '.')
+			return (-1);
+		else 
+		map->map[map->x][map->y] = letter;
+		i = inext;
+		j = jnext;
+		block++;
+
+	}
+}
+
+int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 {
 	int i;
 	int j;
@@ -59,7 +84,8 @@ int		place_blocks(t_tetris *current, t_map *map, char letter, int x, int y)
 			{
 				map->x = x;
 				map->y = y;
-				if ( (ok = place_next_block(current, i, j, map, letter)) == 0)
+				ok = place_next_block(current, i, j, map, letter);
+				if ( ok == 0)
 				{
 					map->map[x][y] = letter;
 					if (current = current->next == NULL)
@@ -86,7 +112,7 @@ int find_block_long(t_tetris *current, int i, int j)
 			while (current->lines[i][j] == '.')
 				j++;
 			if (current->lines[i][j] > 'A' && current->lines[i][j] < 'Z')
-				return (i);
+				return (j);
 		}
 		j = 0;
 		i++;
@@ -103,7 +129,7 @@ int find_block_lat(t_tetris *current, int i, int j)
 			while (current->lines[i][j] == '.')
 				j++;
 			if (current->lines[i][j] > 'A' && current->lines[i][j] < 'Z')
-				return (ij;
+				return (i);
 		}
 		j = 0;
 		i++;
