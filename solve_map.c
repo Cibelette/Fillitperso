@@ -6,7 +6,7 @@
 /*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 11:25:31 by clagier           #+#    #+#             */
-/*   Updated: 2019/05/23 14:12:47 by clagier          ###   ########.fr       */
+/*   Updated: 2019/05/24 14:17:08 by clagier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,43 @@ t_map init_map(void)
 
 	return (map);
 }
-int place_block(t_tetris *current, int i, int j, t_map map)
+
+int		place_blocks(t_tetris *current, t_map *map, char letter, int x, int y)
 {
-	while(map->map[map->x])
+	int i;
+	int j;
+	int ok;
+	
+	i = find_block_lat(current, 0, 0);
+	j = find_block_long(current,0 , 0);
+
+	while (map->map[x])
 	{
-		while (map->map[map->x][map->y])
-			while (map->map[map->x][map->y] != '.')
+		while (map->map[x][y])
+		{
+			while (map->map[x][my] != '.')
 				map->y++;
-			
-		
+			if (map->map[x][y] == '.')
+			{
+				map->x = x;
+				map->y = y;
+				if ( (ok = place_next_block(current, i, j, map, letter)) == 0)
+				{
+					map->map[x][y] = letter;
+					if (current = current->next == NULL)
+						return (0);
+					return(1);
+
+				}
+				else if (ok = -1)
+					place_blocks(current, map, letter, x, y + 1)
+
+			}
+		}
+		map->y = 0;
+		map->x++;
 	}
 }
-
 
 int find_block_long(t_tetris *current, int i, int j)
 {
@@ -78,7 +103,7 @@ int find_block_lat(t_tetris *current, int i, int j)
 			while (current->lines[i][j] == '.')
 				j++;
 			if (current->lines[i][j] > 'A' && current->lines[i][j] < 'Z')
-				return (j);
+				return (ij;
 		}
 		j = 0;
 		i++;
