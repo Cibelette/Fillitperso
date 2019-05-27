@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 11:25:31 by clagier           #+#    #+#             */
-/*   Updated: 2019/05/24 18:03:14 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/05/27 14:47:31 by clagier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int place_next_block(t_tetris *current, int i, int j, t_map map, char letter)
 	int block;
 	int inext;
 	int jnext;
+	char **tmp;
 
+	tmp = map->map;
 	block = 0;
 
 	while(block < 3)
@@ -54,15 +56,17 @@ int place_next_block(t_tetris *current, int i, int j, t_map map, char letter)
 		jnext = find_block_long(current, i, j);
 		map->x += (inext - i);
 		map->y += (jnext - j)
-		if (map->map[map->x][map->y] != '.')
+		if (map->x < 0 || map->y < 0 || tmp[map->x][map->y] != '.')
 			return (-1);
-		else 
-		map->map[map->x][map->y] = letter;
+		tmp[map->x][map->y] = letter;
 		i = inext;
 		j = jnext;
 		block++;
-
 	}
+	map->map = tmp;
+	free(tmp)
+	map->x = 0;
+	map->y = 0;
 }
 
 int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
@@ -78,7 +82,7 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 	{
 		while (map->map[x][y])
 		{
-			while (map->map[x][my] != '.')
+			while (map->map[x][y] != '.')
 				map->y++;
 			if (map->map[x][y] == '.')
 			{
@@ -98,9 +102,10 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 
 			}
 		}
-		map->y = 0;
-		map->x++;
+		y = 0;
+		x++;
 	}
+	return (-1);
 }
 
 int find_block_long(t_tetris *current, int i, int j)
@@ -135,4 +140,28 @@ int find_block_lat(t_tetris *current, int i, int j)
 		i++;
 	}
 	return (-1);
+}
+
+int		solve_map(t_map map)
+{
+	t_tetris	*current;
+	char		letter;
+	int i;
+
+	current = list->first;
+	letter = 'A';
+	i = 1;
+	while (i == 1)
+	{
+		i = place_block(current, map, letter, 0, 0);
+		current = current->next;
+		letter++;
+	}
+	if (i = -1)
+	{
+		free_map(map->map, map->size);
+		init_map(map);
+		solve_map(map);
+	}
+
 }
