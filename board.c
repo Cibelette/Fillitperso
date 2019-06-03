@@ -6,7 +6,7 @@
 /*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/03 11:41:31 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/06/03 13:45:31 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,25 @@ void	print_map(char **map, int map_size)
 	}
 }
 
-char	**extend_tab(char **tab, size_t new_size)
+t_map	*extend_tab(t_map *map, size_t new_size)
 {
-	char	**newtab;
 	size_t		i;
 
-	if (!(newtab = (char **)malloc(sizeof(char *) * new_size)))
+	if (!(map->tab = (char **)malloc(sizeof(char *) * new_size)))
 		return (NULL);
 	i = 0;
 	while (i < new_size)
 	{
-		newtab[i] = ft_strnew_with_dot(new_size);
+		map->tab[i] = ft_strnew_with_dot(new_size);
 		i++;
 	}
 	ft_putstr("le putst\n");
-	ft_putstr(newtab[0]);
+	ft_putstr(map->tab[0]);
 	ft_putchar('\n');
-	ft_putchar(newtab[0][0]);
-	printf("\n le printf\n %s et 00 = %c", newtab[0], newtab[0][0]);
-	newtab[i] = 0;
-	return (newtab);
+	ft_putchar(map->tab[0][1]);
+	//printf("\n le printf\n %s et 00 = %c", newtab[0], newtab[0][0]);
+	map->tab[i] = 0;
+	return (map);
 }
 
 t_map	*init_map(t_map *map)
@@ -87,7 +86,10 @@ t_map	*init_map(t_map *map)
 	map->x = 0;
 	map->y = 0;	
 	map->size = size;
+	map = extend_tab(map, map->size);
+	printf("\n***\n");
+	ft_putstr(map->tab[0]);
+	printf("\n***\n");
 	//printf("%zu\n%zu\n", list->tetri, map->size);
-	map->tab = extend_tab(NULL, map->size);
 	return (map);
 }

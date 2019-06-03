@@ -6,7 +6,7 @@
 /*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/01 13:31:18 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/06/03 13:40:17 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int					check_connexion(char lines[4][5], int i, int j, char letter);
 int					count_connexion(t_tetris *current, char letter);
 
 t_map	*init_map(t_map *map);
-char	**extend_tab(char **tab, size_t new_size);
+t_map	*extend_tab(t_map *map, size_t new_size);
 char	*ft_strnew_with_dot(size_t size);
 void	free_map(char **map, int map_size);
 void	print_map(char **map, int map_size);

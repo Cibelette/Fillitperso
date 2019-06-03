@@ -6,7 +6,7 @@
 /*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:46:12 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/03 11:41:33 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/06/03 12:21:24 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 
 	while (map->tab[x] && map->tab[x][y] != '.')
 	{
-		printf("boucle1 x = %d y = %d char = %c\n", x, y, map->tab[0][0]);
+		printf("boucle1 x = %d y = %d str = %s\n", x, y, map->tab[0]);
+		ft_putchar(map->tab[0][0]);
+		ft_putchar('\n');
 		while (map->tab[x][y] && map->tab[x][y] != '.')
 		{
 			printf("boucle2\n");
@@ -164,11 +166,12 @@ int		ft_solve(t_flist *list, t_map *map)
 	}
 	if (status == ERROR)
 	{
-		init_map(map);
+		/*init_map(map);
 		ft_putstr("\n***\n");
 		print_map(map->tab, map->size);
 		ft_putstr("\n***\n");
-		ft_solve(list, map);
+		ft_solve(list, map);*/
+		return (ERROR);
 	}
 	return (END);
 }

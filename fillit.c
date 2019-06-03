@@ -6,7 +6,7 @@
 /*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/01 13:34:43 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/06/03 13:44:41 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int				ft_fillit(int fd)
 {
 	t_flist		*list;
 	t_map		*map;
-	int			solve;
+	int			status;
 
 	if (fd < 0)
 		return (ERROR);
@@ -121,8 +121,16 @@ int				ft_fillit(int fd)
 	map = NULL;
 	if (!(map = init_map(map)))
 		return (ERROR);
-	solve = 2;
-	ft_solve(list, map);
+	printf("map dan fillit = %s\n", map->tab[0]);
+	status = ft_solve(list, map);
+	while(ft_solve(list, map) == ERROR )
+	{
+		if (!(map = init_map(map)))
+			return (ERROR);
+		map = extend_tab(map, map->size);
+		printf("map dan fillit = %s\n", map->tab[0]);
+		
+	}
 	print_map(map->tab, map->size);
 	return (OK);
 }
