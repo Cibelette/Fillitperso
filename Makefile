@@ -6,13 +6,13 @@
 #    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/02 18:20:04 by mdeltour          #+#    #+#              #
-#    Updated: 2019/05/21 15:15:34 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/05/27 15:46:03 by mdeltour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g
 SRC_PATH = ./
 INC_PATH = ./
 OBJ_PATH = ./obj/
@@ -21,7 +21,9 @@ LIB_PATH = ./
 SRC_NAME = main.c\
 		   fillit.c\
 		   tool.c\
-		   valid_map.c
+		   valid_file.c\
+		   board.c\
+		   solve_map.c
 INC_NAME = fillit.h
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft

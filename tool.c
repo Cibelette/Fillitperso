@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/21 12:32:37 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/01 12:28:31 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,5 @@ t_flist		*ft_newlist(void)
 	list->last = NULL;
 	return (list);
 }
+
+

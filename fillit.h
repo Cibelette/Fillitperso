@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/23 11:58:01 by clagier          ###   ########.fr       */
+/*   Updated: 2019/06/01 13:31:18 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
+# define END 0
+# define OK 1
+# define ERROR -1
+
+# include <stdio.h>
 
 typedef struct		s_flist
 {
@@ -32,12 +37,12 @@ typedef struct		s_tetris
 	struct s_tetris	*next;
 }					t_tetris;
 
-typedef struct		s_mmap
+typedef struct		s_map
 {
-	char			map[size][size + 1];
+	char			**tab;
+	size_t			size;
 	int				x;
 	int				y;
-	size_t			size
 }					t_map;
 
 int					ft_fillit(int fd);
@@ -46,9 +51,24 @@ int					is_valid_str(char *str);
 t_tetris			*create_tetris(char lines[4][5], char letter);
 t_flist				*newtetris(t_flist *list, char lines[4][5], char letter);
 int					ft_free_error(void);
-int					is_file_ok(int fd);
+int					is_file_ok(int fd, t_flist *list);
 int					is_tetris_ok(t_flist list);
 int					check_connexion(char lines[4][5], int i, int j, char letter);
 int					count_connexion(t_tetris *current, char letter);
+
+t_map	*init_map(t_map *map);
+char	**extend_tab(char **tab, size_t new_size);
+char	*ft_strnew_with_dot(size_t size);
+void	free_map(char **map, int map_size);
+void	print_map(char **map, int map_size);
+int		size_of_map(int nb_piece);
+int		ft_solve(t_flist *list, t_map *map);
+
+int place_next_block(t_tetris *current, int i, int j, t_map *map, char letter);
+int		place_block(t_tetris *current, t_map *map, char letter, int x, int y);
+int find_block_long(t_tetris *current, int i, int j);
+int find_block_lat(t_tetris *current, int i, int j);
+
+
 
 #endif

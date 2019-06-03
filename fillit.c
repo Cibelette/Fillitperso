@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/23 14:12:50 by clagier          ###   ########.fr       */
+/*   Updated: 2019/06/01 13:34:43 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 t_tetris		*create_tetris(char lines[4][5], char letter)
 {
@@ -32,9 +31,6 @@ t_tetris		*create_tetris(char lines[4][5], char letter)
 				newtetris->lines[j][i] = letter;
 			i++;
 		}
-		ft_putstr(newtetris->lines[j]);
-		ft_putchar('\n');
-		
 		j++;
 	}
 	newtetris->next = NULL;
@@ -71,9 +67,8 @@ int				ft_free_error(void)
 	return (1);
 }
 
-int				is_file_ok(int fd)
+int				is_file_ok(int fd, t_flist *list)
 {
-	t_flist		*list;
 	char		*line;
 	char		tetris[4][5];
 	int			j;
@@ -83,7 +78,6 @@ int				is_file_ok(int fd)
 	letter = 'A';
 	j = 0;
 	ret = 2;
-	list = ft_newlist();
 	while (ret > 0)
 	{
 		while (j < 4 && ret > 0)
@@ -114,9 +108,21 @@ int				is_file_ok(int fd)
 
 int				ft_fillit(int fd)
 {
+	t_flist		*list;
+	t_map		*map;
+	int			solve;
+
 	if (fd < 0)
-		return (1);
-	if (is_file_ok(fd) != 0)
-		return (1);
-	return (0);
+		return (ERROR);
+	if (!(list = ft_newlist()))
+		return (ERROR);
+	if (is_file_ok(fd, list) != 0)
+		return (ERROR);
+	map = NULL;
+	if (!(map = init_map(map)))
+		return (ERROR);
+	solve = 2;
+	ft_solve(list, map);
+	print_map(map->tab, map->size);
+	return (OK);
 }
